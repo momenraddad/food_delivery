@@ -56,7 +56,7 @@ class _FavoritePState extends State<FavoriteP> {
             },
             itemCount: xa,
           )
-        : Center(
+        : const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

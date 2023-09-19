@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/pages/product_details.dart';
 
 import '../itemes/fooditemes.dart';
 
@@ -159,7 +160,8 @@ class _itemloopState extends State<itemloop> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: click == i ? const Color(0xFFFF4E02) : Colors.white,
+                        color:
+                            click == i ? const Color(0xFFFF4E02) : Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     height: 90,
                     width: 75,
@@ -225,32 +227,45 @@ class _itemloopState extends State<itemloop> {
                         left: 10,
                         top: 10,
                         // bottom: 5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              itemes![click]['itemes'][j]['pic'],
-                              height: 100,
-                              width: 120,
-                            ),
-                            Text(
-                              itemes![click]['itemes'][j]['name'],
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                            Text(itemes![click]['itemes'][j]['time'] +
-                                " Min | " +
-                                itemes![click]['itemes'][j]['sales'] +
-                                " Sell"),
-                            Text(
-                              "\$ " + itemes![click]['itemes'][j]['price'],
-                              style: const TextStyle(
-                                  color: Color(0xFFFF4E02),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            )
-                          ],
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => DetalisF(
+                                          Fooditem: itemes![click]['itemes'][j],
+                                          catag: itemes![click]['type'],
+                                          i: click,
+                                          j: j,
+                                        ))));
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                itemes![click]['itemes'][j]['pic'],
+                                height: 100,
+                                width: 120,
+                              ),
+                              Text(
+                                itemes![click]['itemes'][j]['name'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Text(itemes![click]['itemes'][j]['time'] +
+                                  " Min | " +
+                                  itemes![click]['itemes'][j]['sales'] +
+                                  " Sell"),
+                              Text(
+                                "\$ " + itemes![click]['itemes'][j]['price'],
+                                style: const TextStyle(
+                                    color: Color(0xFFFF4E02),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       Positioned(
