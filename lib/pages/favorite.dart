@@ -33,8 +33,21 @@ class _FavoritePState extends State<FavoriteP> {
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
-                      leading: Image.asset(itemes[s[index]['i']!]['itemes']
-                          [s[index]['j']]['pic']),
+                      leading: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 100,
+                          minHeight: 260,
+                          maxWidth: 200,
+                          maxHeight: 500,
+                        ),
+                        child: Image.asset(
+                          itemes[s[index]['i']!]['itemes'][s[index]['j']]
+                              ['pic'],
+                          // height: 300,
+                          // width: 190,
+                          // fit: BoxFit.fill,
+                        ),
+                      ),
                       title: Text(itemes[s[index]['i']!]['itemes']
                               [s[index]['j']]['name']
                           .toString()),

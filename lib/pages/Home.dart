@@ -7,8 +7,9 @@ class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
   @override
   Widget build(BuildContext context) {
-    //final size = MediaQuery.of(context).size;
-
+    final size = MediaQuery.of(context).size;
+    final orientation = MediaQuery.of(context).orientation;
+    print(orientation);
     return SafeArea(
       child: Scaffold(
         //floating action button position to center
@@ -70,8 +71,10 @@ class MyHomePage extends StatelessWidget {
                     "https://www.shutterstock.com/shutterstock/photos/2316534265/display_1500/stock-photo--discount-offer-flyer-design-template-brochure-poster-caf-and-restaurant-menu-delicious-2316534265.jpg",
                     filterQuality: FilterQuality.high,
                     fit: BoxFit.cover,
-                    width: 352,
-                    height: 170,
+                    width: double.infinity,
+                    height: size.width > 800
+                        ? size.height * 0.5
+                        : size.height * 0.22,
                   ),
                 ),
                 const SizedBox(
@@ -212,79 +215,85 @@ class _itemloopState extends State<itemloop> {
             shrinkWrap: true,
             reverse: false,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 2),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                crossAxisCount: size.width > 800 ? 4 : 2),
             children: <Widget>[
               if (itemes![click == 5 ? --click : click]['itemes'][0] !=
                   "null") ...{
                 for (int j = 0; j < itemes![click]['count']; j++) ...{
-                  Container(
-                    width: 170,
-                    height: 200,
-                    color: Colors.white,
-                    child: Stack(children: [
-                      Positioned(
-                        left: 10,
-                        top: 10,
-                        // bottom: 5,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => DetalisF(
-                                          Fooditem: itemes![click]['itemes'][j],
-                                          catag: itemes![click]['type'],
-                                          i: click,
-                                          j: j,
-                                        ))));
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                itemes![click]['itemes'][j]['pic'],
-                                height: 100,
-                                width: 120,
+                  LayoutBuilder(
+                    builder: ((context, constraints) => Container(
+                          width: 170,
+                          height: 200,
+                          color: Colors.white,
+                          child: Stack(children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => DetalisF(
+                                              Fooditem: itemes![click]['itemes']
+                                                  [j],
+                                              catag: itemes![click]['type'],
+                                              i: click,
+                                              j: j,
+                                            ))));
+                              },
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                        itemes![click]['itemes'][j]['pic'],
+                                        height: constraints.maxHeight * 0.5,
+                                        width: constraints.maxWidth * 0.5,
+                                        fit: BoxFit.contain),
+                                    Text(
+                                      itemes![click]['itemes'][j]['name'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              constraints.maxHeight * 0.1),
+                                    ),
+                                    Text(itemes![click]['itemes'][j]['time'] +
+                                        " Min | " +
+                                        itemes![click]['itemes'][j]['sales'] +
+                                        " Sell"),
+                                    Text(
+                                      "\$ " +
+                                          itemes![click]['itemes'][j]['price'],
+                                      style: const TextStyle(
+                                          color: Color(0xFFFF4E02),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text(
-                                itemes![click]['itemes'][j]['name'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              Text(itemes![click]['itemes'][j]['time'] +
-                                  " Min | " +
-                                  itemes![click]['itemes'][j]['sales'] +
-                                  " Sell"),
-                              Text(
-                                "\$ " + itemes![click]['itemes'][j]['price'],
-                                style: const TextStyle(
-                                    color: Color(0xFFFF4E02),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 7, // Adjust the top position as needed
-                        right: 0, // Adjust the right position as needed
-                        child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                itemes![click]['itemes'][j]['state'] =
-                                    !itemes![click]['itemes'][j]['state'];
-                              });
-                            },
-                            icon: itemes![click]['itemes'][j]['state'] == false
-                                ? const Icon(Icons.favorite_border)
-                                : const Icon(Icons.favorite),
-                            color: Colors.deepOrange),
-                      ),
-                    ]),
-                  ),
+                            ),
+                            Positioned(
+                              top: 7, // Adjust the top position as needed
+                              right: 0, // Adjust the right position as needed
+                              child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      itemes![click]['itemes'][j]['state'] =
+                                          !itemes![click]['itemes'][j]['state'];
+                                    });
+                                  },
+                                  icon: itemes![click]['itemes'][j]['state'] ==
+                                          false
+                                      ? const Icon(Icons.favorite_border)
+                                      : const Icon(Icons.favorite),
+                                  color: Colors.deepOrange),
+                            ),
+                          ]),
+                        )),
+                  )
                 }
               } else ...{
                 const Column(

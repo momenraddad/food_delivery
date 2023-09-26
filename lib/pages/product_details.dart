@@ -38,8 +38,8 @@ class _DetalisFState extends State<DetalisF> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back_ios)),
-                  Spacer(),
+                      icon: const Icon(Icons.arrow_back_ios)),
+                  const Spacer(),
                   IconButton(
                       onPressed: () {
                         setState(() {
@@ -50,8 +50,8 @@ class _DetalisFState extends State<DetalisF> {
                       },
                       splashRadius: 1,
                       icon: widget.Fooditem['state']
-                          ? Icon(Icons.favorite)
-                          : Icon(Icons.favorite_border),
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border),
                       color: Colors.deepOrange),
                 ],
               ),
@@ -61,9 +61,9 @@ class _DetalisFState extends State<DetalisF> {
                 child: Column(
                   children: [
                     DecoratedBox(
-                      decoration: BoxDecoration(color: Color(0xFFFEFEFE)),
+                      decoration: const BoxDecoration(color: Color(0xFFFEFEFE)),
                       child: Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Image.asset(
                           widget.Fooditem['pic'],
                           width: double.infinity,
@@ -73,12 +73,12 @@ class _DetalisFState extends State<DetalisF> {
                       ),
                     ),
                     Container(
-                      color: Color(0xFFF5F5F5),
+                      color: const Color(0xFFF5F5F5),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Container(
@@ -89,14 +89,14 @@ class _DetalisFState extends State<DetalisF> {
                               height: 7,
                               width: 70,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
                               children: [
                                 Text(
                                   widget.Fooditem['name'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -114,10 +114,10 @@ class _DetalisFState extends State<DetalisF> {
                                             coun == 1 ? coun : coun--;
                                           });
                                         },
-                                        icon: Icon(Icons.remove),
+                                        icon: const Icon(Icons.remove),
                                       ),
                                       Text(coun.toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 25,
                                               fontWeight: FontWeight.w500)),
                                       IconButton(
@@ -126,23 +126,23 @@ class _DetalisFState extends State<DetalisF> {
                                               coun++;
                                             });
                                           },
-                                          icon: Icon(Icons.add),
+                                          icon: const Icon(Icons.add),
                                           splashRadius: 1,
-                                          visualDensity:
-                                              VisualDensity(vertical: 0.5))
+                                          visualDensity: const VisualDensity(
+                                              vertical: 0.5))
                                     ],
                                   ),
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
-                            property_details(),
-                            SizedBox(
+                            const property_details(),
+                            const SizedBox(
                               height: 15,
                             ),
-                            Text(
+                            const Text(
                               "Description ,Description,Description,Description,Description,Description,Description,Description,Description,Description,Description,Description,Description, ",
                               softWrap: true,
                               style: TextStyle(
@@ -167,14 +167,15 @@ class _DetalisFState extends State<DetalisF> {
                 padding: const EdgeInsets.all(15),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       "\$ " + price.floor().toString(),
-                      style: TextStyle(fontSize: 30, color: Color(0xFFFF4E00)),
+                      style: const TextStyle(
+                          fontSize: 30, color: Color(0xFFFF4E00)),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15)),
@@ -183,11 +184,11 @@ class _DetalisFState extends State<DetalisF> {
                         height: 50,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Color(
+                              primary: const Color(
                                   0xFFFF4E00), // Set the background color here
                             ),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               "Checkout",
                               style: TextStyle(fontSize: 20),
                             )))
@@ -215,7 +216,7 @@ class property_details extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Size",
@@ -229,7 +230,7 @@ class property_details extends StatelessWidget {
               width: 2,
               height: 50,
             ),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Calories",
@@ -243,7 +244,7 @@ class property_details extends StatelessWidget {
               width: 2,
               height: 50,
             ),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Cooking",
