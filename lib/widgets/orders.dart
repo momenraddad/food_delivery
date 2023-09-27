@@ -6,7 +6,7 @@ class Order_C extends StatelessWidget {
     required this.title,
     required this.value,
   });
-  final value;
+  final int value;
   final title;
 
   @override
@@ -21,7 +21,7 @@ class Order_C extends StatelessWidget {
           height: 5,
         ),
         Text(
-          value,
+          value.toString(),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         )
       ],

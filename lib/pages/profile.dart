@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/itemes/myorder.dart';
 import 'package:food_delivery/widgets/list_tile.dart';
 import 'package:food_delivery/widgets/orders.dart';
 
@@ -49,17 +50,17 @@ class ProfileP extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Order_C(title: "Orders", value: "5"),
+                      Order_C(title: "Orders", value: myorder.length),
                       SizedBox(
                         width: 130,
                         height: 60,
                         child: VerticalDivider(),
                       ),
-                      Order_C(title: "Coupons", value: "10")
+                      Order_C(title: "Coupons", value: 5)
                     ],
                   ),
                   const SizedBox(

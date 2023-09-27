@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/pages/Myorder.dart';
 
 class List_tile extends StatelessWidget {
   const List_tile({super.key, required this.leading, required this.title});
@@ -28,7 +29,10 @@ class List_tile extends StatelessWidget {
             onTap: () {},
           )
         : CupertinoListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Myorder()));
+            },
             leading: Icon(leading, color: Colors.black, size: 40),
             title: Text(
               title,

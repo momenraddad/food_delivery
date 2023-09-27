@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/pages/Home.dart';
 import 'package:food_delivery/pages/favorite.dart';
 import 'package:food_delivery/pages/profile.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+  MyWidget({super.key, this.indexs = 1});
+  int? indexs;
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<MyWidget> createState() => _MyWidgetState(indexs!);
 }
 
 class _MyWidgetState extends State<MyWidget> {
-  int i = 1;
-  List<Widget> pages = [
-    const FavoriteP(),
-    const MyHomePage(),
-    const ProfileP()
-  ];
+  _MyWidgetState(this.i);
+
+  List<Widget> pages = [const FavoriteP(), MyHomePage(), const ProfileP()];
   // late Color color2;
+  int i = 1;
 
   void selec(int index) {
     print("this index $index");
@@ -34,45 +34,55 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     print(i);
     return Scaffold(
-      body: pages[i],
+      body: pages[i!],
       bottomNavigationBar: Platform.isIOS
-          ? CupertinoTabBar(
-              currentIndex: i,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    CupertinoIcons.heart_fill,
-                    size: 35.0,
-                    color:
-                        i == 0 ? CupertinoColors.white : CupertinoColors.black,
-                  ),
+          ? PersistentTabView(
+              context,
+              stateManagement: true,
+              controller: PersistentTabController(initialIndex: i),
+              screens: pages,
+              // navBarStyle: NavBarStyle.style15,
+
+              items: [
+                PersistentBottomNavBarItem(
+                  icon: Icon(Icons.favorite, size: 25),
+                  title: "Favorite",
+                  activeColorPrimary: Colors.deepOrange,
+                  inactiveColorPrimary: Colors.black,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    CupertinoIcons.home,
-                    size: 30.0,
-                    color:
-                        i == 1 ? CupertinoColors.white : CupertinoColors.black,
-                  ),
+                PersistentBottomNavBarItem(
+                  icon: Icon(Icons.home, size: 25),
+                  title: "Home",
+                  activeColorPrimary: Colors.deepOrange,
+                  inactiveColorPrimary: Colors.black,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    CupertinoIcons.person_fill,
-                    size: 30.0,
-                    color:
-                        i == 2 ? CupertinoColors.white : CupertinoColors.black,
-                  ),
+                PersistentBottomNavBarItem(
+                  icon: Icon(Icons.account_circle, size: 25),
+                  title: "Account",
+                  activeColorPrimary: Colors.deepOrange,
+                  inactiveColorPrimary: Colors.black,
                 ),
               ],
-              onTap: (index) {
+              decoration: NavBarDecoration(
+                colorBehindNavBar: Colors.transparent,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              // controllerPopAllScreensOnTapOfSelectedTab: true,
+              popActionScreens: PopActionScreensType.once,
+              navBarStyle: NavBarStyle.style1,
+              screenTransitionAnimation: const ScreenTransitionAnimation(
+                animateTabTransition: true,
+                curve: Curves.easeInOut,
+                duration: Duration(milliseconds: 400),
+              ),
+              onItemSelected: (int index) {
                 setState(() {
                   i = index;
                 });
               },
-              backgroundColor: CupertinoColors.white,
             )
           : CurvedNavigationBar(
-              index: i,
+              index: i!,
               items: <Widget>[
                 Icon(Icons.favorite,
                     size: 35, color: i == 0 ? Colors.white : Colors.black),

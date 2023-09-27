@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/itemes/myorder.dart';
 import '../itemes/fooditemes.dart';
 
 class DetalisF extends StatefulWidget {
@@ -7,11 +8,13 @@ class DetalisF extends StatefulWidget {
       required this.Fooditem,
       required this.catag,
       required this.i,
-      required this.j});
+      required this.j,
+      this.routesB = '/'});
   final Fooditem;
   final catag;
   int? i;
   int? j;
+  String routesB;
 
   @override
   State<DetalisF> createState() => _DetalisFState();
@@ -22,7 +25,11 @@ class _DetalisFState extends State<DetalisF> {
 
   @override
   Widget build(BuildContext context) {
+    print("this home page " + widget.Fooditem.toString());
+
     var price = double.parse(widget.Fooditem['price'].toString());
+    price > 1 ? price.floor() : price;
+
     if (price != null) {
       price = price * coun;
     }
@@ -36,7 +43,10 @@ class _DetalisFState extends State<DetalisF> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        setState(() {
+                          // Navigator.pop(context);
+                          Navigator.popAndPushNamed(context, widget.routesB);
+                        });
                       },
                       icon: const Icon(Icons.arrow_back_ios)),
                   const Spacer(),
@@ -171,7 +181,7 @@ class _DetalisFState extends State<DetalisF> {
                       width: 10,
                     ),
                     Text(
-                      "\$ " + price.floor().toString(),
+                      "\$ " + price.toString(),
                       style: const TextStyle(
                           fontSize: 30, color: Color(0xFFFF4E00)),
                     ),
@@ -187,7 +197,18 @@ class _DetalisFState extends State<DetalisF> {
                               primary: const Color(
                                   0xFFFF4E00), // Set the background color here
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                myorder!.add({
+                                  'itemes': itemes[widget.i!]['itemes']
+                                      [widget.j],
+                                  'value': coun,
+                                  'priceT': price.toString()
+                                });
+
+                                print(myorder);
+                              });
+                            },
                             child: const Text(
                               "Checkout",
                               style: TextStyle(fontSize: 20),

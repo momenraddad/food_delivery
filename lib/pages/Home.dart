@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/pages/product_details.dart';
+// import 'package:food_delivery/pages/product_details.dart';
 
 import '../itemes/fooditemes.dart';
+import 'Home page/appbar.dart';
+import 'Home page/search&pic.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+int? x;
+int? y;
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    // MediaQuery.of(context).
     final orientation = MediaQuery.of(context).orientation;
     print(orientation);
     return SafeArea(
@@ -19,93 +31,8 @@ class MyHomePage extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: const DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFFFFF),
-                            ),
-                            child: Icon(size: 30, Icons.menu)),
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "current location",
-                            style: TextStyle(
-                                color: Colors.grey[500], fontSize: 12),
-                          ),
-                          const Row(
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                color: Colors.green,
-                                size: 20,
-                              ),
-                              Text(
-                                " Nablus,palestine",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: const DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFFFFF),
-                            ),
-                            child: Icon(size: 30, Icons.notifications)),
-                      ),
-                    ]),
-                const SizedBox(
-                  height: 20,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    "https://www.shutterstock.com/shutterstock/photos/2316534265/display_1500/stock-photo--discount-offer-flyer-design-template-brochure-poster-caf-and-restaurant-menu-delicious-2316534265.jpg",
-                    filterQuality: FilterQuality.high,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: size.width > 800
-                        ? size.height * 0.5
-                        : size.height * 0.22,
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                  ),
-                  width: double.infinity,
-                  height: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.search,
-                          size: 30,
-                          color: Colors.grey[500],
-                        ),
-                        Text(" Find your food",
-                            style: TextStyle(
-                                color: Colors.grey[500], fontSize: 15))
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const appbar(),
+                Search(),
                 itemloop(
                   itemes: itemes,
                 ),
@@ -142,6 +69,8 @@ class _itemloopState extends State<itemloop> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    // print("in");
+
     return Column(
       // crossAxisAlignment: CrossAxisAlignment.center,
       // mainAxisAlignment: MainAxisAlignment.center,
@@ -230,17 +159,21 @@ class _itemloopState extends State<itemloop> {
                           color: Colors.white,
                           child: Stack(children: [
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) => DetalisF(
-                                              Fooditem: itemes![click]['itemes']
-                                                  [j],
-                                              catag: itemes![click]['type'],
-                                              i: click,
-                                              j: j,
-                                            ))));
+                              onTap: () async {
+                                Navigator.of(context).pushNamed('/productH');
+                                x = click;
+                                y = j;
+
+                                // final backv = await Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: ((context) => DetalisF(
+                                //               Fooditem: itemes![click]['itemes']
+                                //                   [j],
+                                //               catag: itemes![click]['type'],
+                                //               i: click,
+                                //               j: j,
+                                //             ))));
                               },
                               child: Center(
                                 child: Column(
